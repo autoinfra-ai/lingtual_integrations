@@ -1,0 +1,71 @@
+openapi: 3.0.0
+info:
+  title: Create Book Endpoint
+  version: 1.0.0
+  description: Create a new book in the library. The endpoint description is kept under 500 characters to meet the requirements.
+
+servers:
+  - url: https://api.library.com
+
+paths:
+  /books:
+    post:
+      summary: Create a new book in the library (up to 500 characters for summary)
+      description: Create a new book with detailed information including authors, categories, and publisher details. (max 150 characters)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  description: Title of the book (max 150 characters)
+                authors:
+                  type: array
+                  items:
+                    type: string
+                  description: List of authors (max 150 characters)
+                categories:
+                  type: array
+                  items:
+                    type: string
+                  description: List of categories (max 150 characters)
+                publisher:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                      description: Name of the publisher (max 150 characters)
+                    address:
+                      type: string
+                      description: Address of the publisher (max 150 characters)
+                    contact:
+                      type: object
+                      properties:
+                        email:
+                          type: string
+                          description: Contact email of the publisher (max 150 characters)
+                        phone:
+                          type: string
+                          description: Contact phone of the publisher (max 150 characters)
+                publishedDate:
+                  type: string
+                  description: Publication date in YYYY-MM-DD format (max 150 characters)
+                  format: date
+                available:
+                  type: boolean
+                  description: Availability status (max 150 characters)
+                  default: true
+      responses:
+        '201':
+          description: Book created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    description: Unique identifier for the created book (max 150 characters)

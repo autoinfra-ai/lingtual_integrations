@@ -1,0 +1,26 @@
+name: Validate OpenAPI
+
+on:
+  pull_request:
+    paths:
+      - 'integrations/*.yaml' # Adjust this path to where the YAML files will be located
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
+
+    - name: Install dependencies
+      run: pip install pyyaml openapi-spec-validator
+
+    - name: Validate OpenAPI YAML
+      run: python validate_openapi.py integrations/${{ github.event.pull_request.head.ref }}.yaml
+      # Adjust the path to where the script and YAML file are located
