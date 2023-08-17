@@ -1,21 +1,3 @@
-### Step-by-Step Guide:
-1. **Fork the Repository**: Fork the main repository to your GitHub account.
-2. **Clone Your Fork**: Clone the forked repository to your local machine.
-3. **Create a New Branch**: Create a new branch for your changes (e.g., `feature/add-new-endpoint`).
-4. **Create a YAML File**: Create a new YAML file for the endpoint you're defining.
-5. **Define the Endpoint**: Define the endpoint using the OpenAPI 3.0 specification. The YAML file must contain only one endpoint, include the URL, and follow the specific requirements:
-   - Endpoint URL must be included.
-   - Descriptions must not exceed 150 characters.
-   - Summary must not exceed 500 characters.
-   - All components must be defined directly in the endpoint, not using references.
-6. **Validate the YAML File**: Run a local script or use an online OpenAPI validator to ensure the YAML file meets the specifications.
-7. **Commit Your Changes**: Commit your changes to your branch.
-8. **Push to GitHub**: Push your branch to your fork on GitHub.
-9. **Create a Pull Request**: Create a pull request from your fork to the main repository. Include a description summarizing the endpoint you're adding.
-10. **Address Review Comments**: Address any comments from the maintainers and make necessary updates.
-11. **Wait for Merge**: Wait for the maintainers to review and merge your pull request.
-
-### README:
 
 # Contributing to Our API Integrations
 
