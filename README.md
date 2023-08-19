@@ -1,7 +1,7 @@
 
 # Contributing to Our API Integrations
 
-Thank you for considering contributing to our API integrations! Here's a detailed guide to help you add new endpoints.
+Thank you for considering contributing to our API integrations! Here's a detailed guide to help you submit new endpoints for us to integrate!
 
 ## Quick Guidelines
 - Only one endpoint per YAML file.
