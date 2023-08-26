@@ -1,26 +1,23 @@
-
 # Contributing to Our API Integrations
 
 Thank you for considering contributing to our API integrations! Here's a detailed guide to help you submit new endpoints for us to integrate!
 
 ## Quick Guidelines
-- Only one endpoint per YAML file.
-- A Pull Request (PR) can contain more than one YAML file if you're defining multiple endpoints.
-- Follow the OpenAPI 3.0 specification.
-- Make sure descriptions are no longer than 150 characters, and the endpoint summary is under 500 characters.
-- No component references are allowed; include all components directly in the endpoint definition.
+- **OpenAPI Version**: Stick to OpenAPI 3.x versions.
+- **Character Limit**: Descriptions should be under 150 characters, and endpoint summaries should be kept under 500 characters.
+- **Component References**: Component references are now allowed.
 
 ## Steps to Contribute
-1. **Fork & Clone**: Start by forking this repository, and then clone your fork locally.
-2. **Create a new yaml**: create a new yaml file in integrations/
-3. **Define Your Endpoint**: Follow the guidelines above to define your endpoint in a new YAML file.
-4. **Validate**: Ensure your YAML file meets our specifications. You can run `validation_openapi.py` locally to validate your file.
-5. **Commit & Push**: Commit your changes and push them to your GitHub fork.
-6. **Submit a Pull Request**: Create a pull request from your branch to the main repository, and describe your changes.
-7. **Collaborate**: Be ready to discuss your changes and make updates as necessary.
+1. **Fork & Clone**: Fork this repository and clone your fork to your local machine.
+2. **Navigate to integrations/**: Create or modify a YAML file in the `integrations/` directory.
+3. **Define Your Endpoints**: Using the new YAML file, define your API endpoints. Remember to follow the quick guidelines.
+4. **Validation**: Validate your YAML file against the OpenAPI 3.x specification. You can use the `validation_openapi.py` script locally to ensure compliance.
+5. **Commit & Push**: Commit your changes and push them to your forked repository.
+6. **Create a Pull Request**: Initiate a pull request from your fork to the main repository, and provide a summary of your changes.
+7. **Engage in Discussion**: Be prepared for comments and possibly revisions to your pull request.
 
 ## Need Help?
-Refer to the [OpenAPI documentation](https://swagger.io/docs/specification/about/) for more information about defining your endpoint. If you have any questions, don't hesitate to reach out to the maintainers.
+Consult the [OpenAPI Documentation](https://swagger.io/docs/specification/about/) for more details on defining your endpoint. Should you have questions or run into issues, don't hesitate to contact the maintainers.
 
 ## Thank You!
-Your contributions make our platform even better. Thank you for collaborating with us!
+Your contributions help us continually improve. Thanks for your time and effort!
