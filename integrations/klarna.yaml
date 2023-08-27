@@ -1,6 +1,6 @@
 {
   "openapi": "3.0.1",
-  "info": { "version": "v0", "title": "Open AI Klarna product Api" },
+  "info": { "version": "v0", "title": "Klarna Shopping Api" },
   "servers": [{ "url": "https://www.klarna.com/us/shopping" }],
   "tags":
     [
