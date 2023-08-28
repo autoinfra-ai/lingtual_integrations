@@ -1,0 +1,65 @@
+openapi: 3.0.0
+info:
+  title: Notion API
+  version: 1.0.0
+servers:
+  - url: https://api.notion.com
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+security:
+  - bearerAuth: []
+tags:
+  - name: Users
+  - name: Databases
+  - name: Pages
+  - name: Blocks
+  - name: Search
+  - name: Comments
+paths:
+  /v1/users/{user_id}:
+    get:
+      tags:
+        - Users
+      summary: Retrieve a user
+      description: Retrieve a user object using the ID specified in the request path.
+      parameters:
+        - name: Notion-Version
+          in: header
+          schema:
+            type: string
+          example: 2022-06-28
+        - name: user_id
+          in: path
+          schema:
+            type: string
+          required: true
+          example: d40e767c-d7af-4b18-a86d-55c61f1e39a4
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                object: user
+                id: d40e767c-d7af-4b18-a86d-55c61f1e39a4
+                name: Om Gujarathi
+                avatar_url: https://secure.notion-static.com/e6a352a8-8381-44d0-a1dc-9ed80e62b53d.jpg
+                type: person
+                person:
+                  email: om@example.org
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                object: error
+                status: 400
+                code: validation_error
+                message: path failed validation path.user_id should be a valid uuid, instead was `\"{user_id}\"`.
