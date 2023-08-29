@@ -9,6 +9,106 @@ components:
     bearerAuth:
       type: http
       scheme: bearer
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 6794760a-1f15-45cd-9c65-0dfe42f5135a
+        name:
+          type: string
+          example: Om Gujarathi
+        avatar_url:
+          type: string
+          format: uri
+          example: https://secure.notion-static.com/e6a352a8-8381-44d0-a1dc-9ed80e62b53d.jpg
+        type:
+          type: string
+          example: person
+        person:
+          type: object
+          properties:
+            email:
+              type: string
+              example: om@example.org
+    Page:
+      type: object
+      properties:
+        id:
+          type: string
+          example: ae1905c3-b77b-475b-b98f-7596c242137f
+        created_time:
+          type: string
+          format: date-time
+          example: 2021-05-21T16:41:00.000Z
+        last_edited_time:
+          type: string
+          format: date-time
+          example: 2021-05-21T16:41:00.000Z
+        created_by:
+          type: object
+          properties:
+            object:
+              type: string
+              example: user
+            id:
+              type: string
+              example: 92a680bb-6970-4726-952b-4f4c03bff617
+        last_edited_by:
+          type: object
+            properties:
+              object:
+                type: string
+                example: user
+              id:
+                type: string
+                example: 92a680bb-6970-4726-952b-4f4c03bff617
+        cover:
+          type: null
+        icon:
+          type: null
+        parent:
+          type: object
+          properties:
+            type:
+              type: string
+              example: page_id
+            page_id:
+              type: string
+              example: d9824bdc-8445-4327-be8b-5b47500af6ce
+        archived:
+          type: boolean
+          example: false
+        properties:
+          type: object
+          properties:
+            title:
+              type: object
+              properties:
+                id:
+                  type: string
+                  example: title
+                type:
+                  type: string
+                  example: title
+                title:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      type:
+                        type: string
+                        example: text
+                      text:
+                        type: object
+                        properties:
+                          content:
+                            type: string
+                            example: Computer Networks
+        url:
+          type: string
+          example: https://www.notion.so/Computer-Networks-b3937e26820342cdb7481ce80adf7ac5
 security:
   - bearerAuth: []
 tags:
@@ -30,6 +130,7 @@ paths:
           in: header
           schema:
             type: string
+          required: true
           example: 2022-06-28
         - name: user_id
           in: path
@@ -43,15 +144,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-              example:
-                object: user
-                id: 6794760a-1f15-45cd-9c65-0dfe42f5135a
-                name: Om Gujarathi
-                avatar_url: https://secure.notion-static.com/e6a352a8-8381-44d0-a1dc-9ed80e62b53d.jpg
-                type: person
-                person:
-                  email: om@example.org
+                $ref: '#/components/schemas/User'
         '400':
           description: Bad Request
           content:
@@ -84,6 +177,7 @@ paths:
           in: header
           schema:
             type: string
+          required: true
           example: 2022-06-28
       responses:
         '200':
@@ -95,41 +189,7 @@ paths:
               example:
                 object: list
                 results:
-                  - object: page
-                    id: ae1905c3-b77b-475b-b98f-7596c242137f
-                    created_time: 2021-05-21T16:41:00.000Z
-                    last_edited_time: 2021-05-21T16:41:00.000Z
-                    created_by:
-                      object: user
-                      id: 92a680bb-6970-4726-952b-4f4c03bff617
-                    last_edited_by:
-                      object: user
-                      id: 92a680bb-6970-4726-952b-4f4c03bff617
-                    cover: null
-                    icon: null
-                    parent:
-                      type: database_id
-                      database_id: d9824bdc-8445-4327-be8b-5b47500af6ce
-                    archived: false
-                    properties:
-                      title:
-                        id: title
-                        type: title
-                        title:
-                          - type: text
-                            text:
-                              content: Computer Networks
-                              link: null
-                            annotations:
-                              bold: false
-                              italic: false
-                              strikethrough: false
-                              underline: false
-                              code: false
-                              color: default
-                            plain_text: Computer Networks
-                            href: null
-                    url: https://www.notion.so/Computer-Networks-b3937e26820342cdb7481ce80adf7ac5
+                  - $ref: '#/components/schemas/Page'
         '400':
           description: Bad Request
           content:
