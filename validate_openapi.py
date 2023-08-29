@@ -1,5 +1,6 @@
 import yaml
 from openapi_spec_validator import validate_spec
+import os
 
 def validate_descriptions(data, max_description_length, max_summary_length):
     for path, methods in data['paths'].items():
@@ -36,28 +37,36 @@ def validate_endpoint_url(data):
     if 'servers' not in data or not data['servers']:
         raise ValueError("URL for the endpoint must be defined")
 
-def main(yaml_file):
-    with open(yaml_file, 'r') as file:
-        data = yaml.safe_load(file)
+def main(directory):
+    for filename in os.listdir(directory):
+        if filename.endswith(".yaml"):
+            filepath = os.path.join(directory, filename)
+            with open(filepath, 'r') as file:
+                data = yaml.safe_load(file)
 
-    # Validate OpenAPI schema
-    validate_spec(data)
+            # Validate OpenAPI schema
+            validate_spec(data)
 
-    # Validate custom requirements
-    max_description_length = 150
-    max_summary_length = 500
-    validate_descriptions(data, max_description_length, max_summary_length)
-    validate_single_endpoint(data)
-    validate_no_component_refs(data)
-    validate_endpoint_url(data)
+            # Validate custom requirements
+            max_description_length = 150
+            max_summary_length = 500
+            validate_descriptions(data, max_description_length, max_summary_length)
+            validate_single_endpoint(data)
+            validate_no_component_refs(data)
+            validate_endpoint_url(data)
 
-    print("OpenAPI YAML is valid!")
+            print(f"{filename} is valid!")
 
 if __name__ == '__main__':
     import sys
     if len(sys.argv) != 2:
-        print("Usage: python validate_openapi.py <path_to_yaml>")
+        print("Usage: python validate_openapi.py <path_to_directory>")
         sys.exit(1)
 
-    yaml_file = sys.argv[1]
-    main(yaml_file)
+    directory = sys.argv[1]
+    main(directory)
+
+
+
+
+

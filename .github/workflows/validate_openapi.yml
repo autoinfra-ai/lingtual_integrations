@@ -22,5 +22,4 @@ jobs:
       run: pip install pyyaml openapi-spec-validator
 
     - name: Validate OpenAPI YAML
-      run: python validate_openapi.py integrations/${{ github.event.pull_request.head.ref }}.yaml
-      # Adjust the path to where the script and YAML file are located
+      run: python validate_openapi.py integrations/
