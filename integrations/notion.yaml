@@ -64,10 +64,6 @@ components:
               id:
                 type: string
                 example: 92a680bb-6970-4726-952b-4f4c03bff617
-        cover:
-          type: null
-        icon:
-          type: null
         parent:
           type: object
           properties:
