@@ -1,0 +1,206 @@
+openapi: 3.0.0
+info:
+  title: Notion API
+  version: 1.0.0
+servers:
+  - url: https://api.notion.com
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 6794760a-1f15-45cd-9c65-0dfe42f5135a
+        name:
+          type: string
+          example: Om Gujarathi
+        avatar_url:
+          type: string
+          format: uri
+          example: https://secure.notion-static.com/e6a352a8-8381-44d0-a1dc-9ed80e62b53d.jpg
+        type:
+          type: string
+          example: person
+        person:
+          type: object
+          properties:
+            email:
+              type: string
+              example: om@example.org
+    Page:
+      type: object
+      properties:
+        id:
+          type: string
+          example: ae1905c3-b77b-475b-b98f-7596c242137f
+        created_time:
+          type: string
+          format: date-time
+          example: 2021-05-21T16:41:00.000Z
+        last_edited_time:
+          type: string
+          format: date-time
+          example: 2021-05-21T16:41:00.000Z
+        created_by:
+          type: object
+          properties:
+            object:
+              type: string
+              example: user
+            id:
+              type: string
+              example: 92a680bb-6970-4726-952b-4f4c03bff617
+        last_edited_by:
+          type: object
+            properties:
+              object:
+                type: string
+                example: user
+              id:
+                type: string
+                example: 92a680bb-6970-4726-952b-4f4c03bff617
+        parent:
+          type: object
+          properties:
+            type:
+              type: string
+              example: page_id
+            page_id:
+              type: string
+              example: d9824bdc-8445-4327-be8b-5b47500af6ce
+        archived:
+          type: boolean
+          example: false
+        properties:
+          type: object
+          properties:
+            title:
+              type: object
+              properties:
+                id:
+                  type: string
+                  example: title
+                type:
+                  type: string
+                  example: title
+                title:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      type:
+                        type: string
+                        example: text
+                      text:
+                        type: object
+                        properties:
+                          content:
+                            type: string
+                            example: Computer Networks
+        url:
+          type: string
+          example: https://www.notion.so/Computer-Networks-b3937e26820342cdb7481ce80adf7ac5
+security:
+  - bearerAuth: []
+tags:
+  - name: Users
+  - name: Databases
+  - name: Pages
+  - name: Blocks
+  - name: Search
+  - name: Comments
+paths:
+  /v1/users/{user_id}:
+    get:
+      tags:
+        - Users
+      summary: Retrieve a user
+      description: Retrieve a user object using the ID specified in the request path.
+      parameters:
+        - name: Notion-Version
+          in: header
+          schema:
+            type: string
+          required: true
+          example: 2022-06-28
+        - name: user_id
+          in: path
+          schema:
+            type: string
+          required: true
+          example: d40e767c-d7af-4b18-a86d-55c61f1e39a4
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                object: error
+                status: 400
+                code: validation_error
+                message: path failed validation path.user_id should be a valid uuid, instead was `\"{user_id}\"`.
+  /v1/search:
+    post:
+      tags:
+        - Search
+      summary: Search by title
+      requestBody:
+        content:
+          application/json:
+            example:
+              query: Networks
+              filter:
+                value: page
+                property: object
+              sort:
+                direction: ascending
+                timestamp: last_edited_time
+      parameters:
+        - name: Notion-Version
+          in: header
+          schema:
+            type: string
+          required: true
+          example: 2022-06-28
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                object: list
+                results:
+                  - $ref: '#/components/schemas/Page'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              example:
+                object: error
+                status: 400
+                code: invalid_json
+                message: Error parsing JSON body.
+        '429':
+          description: You have been rate limited. Please try again in a few minutes.
+          content:
+            application/json:
+              example:
+                object: error
+                status: 429
+                code: rate_limited
+                message: You have been rate limited. Please try again in a few minutes.
